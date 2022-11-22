@@ -1,8 +1,14 @@
 from Tape import Tape
 
 
-debug_run = True
+debug_run = False
 default_file_names = True
+
+def debug_print():
+    print(tape.current_state.__str__())
+    print("Current Value / Position: " + tape.get() + " / " + str(tape.position))
+    print(tape)
+    input()
 
 if default_file_names:
     input_filename="input.txt"
@@ -19,16 +25,13 @@ if debug_run:
 
 tape = Tape(input_filename, instructions_filename, output_filename)
 
+# Run loop
 while tape.running:
     if debug_run:
-        print(tape.current_state.__str__())
-        print("Current Value / Position: " + tape.get() + " / " + str(tape.position))
-        print(tape)
+        debug_print()
         input()
     tape.analyze()
 
 if debug_run:
-        print(tape.current_state.__str__())
-        print("Current Value / Position: " + tape.get() + " / " + str(tape.position))
-        print(tape)
+        debug_print()
         input()

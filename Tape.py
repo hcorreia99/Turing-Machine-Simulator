@@ -57,21 +57,23 @@ class Tape:
                 self.current_state = s
                 break
         if self.current_state.name == "END":
-            self.running = False
+            self.end()
 
-    # Ends this tape's run
+    # Ends this tape's run and output to file
     def end(self):
-        self.end_state = True
+        self.running = False
         f = open(self.output_filename,"a")
         result = ""
         for s in self.tape:
             result += s
+        print(result)
         f.write(result)
         f.close()
         
-
     # Analyzes and acts on current slot with current state
     def analyze(self):
+        if self.position==len(self.tape):
+            self.tape.append("_")
         for c in self.current_state.conditions:
             if c.isValid(self.get()):
                 self.set(c.new_value)

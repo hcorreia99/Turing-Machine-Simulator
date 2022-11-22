@@ -1,4 +1,6 @@
 [x] - Tape basic cycle
-[ ] - Output to file
+[x] - Output to file
 [ ] - Instruction error handling
+[ ] - Runtime error handling
+[ ] - Multiple end states
 [ ] - Multiple Tapes
