@@ -2,16 +2,33 @@ from Tape import Tape
 
 
 debug_run = False
+default_file_names = True
 
-print("Do not forget to setup input tape!")
-print("Please input instructions file name: ")
-filename = input()
+if default_file_names:
+    input_filename="input.txt"
+    instructions_filename = "addition.txt"
+    output_filename = "output.txt"
+else:
+    print("Input file name: ")
+    print("Instructions file name: ")
+    instructions_filename = input()
+    print("Output file name: ")
+    output_filename = input()
+if debug_run:
+    print("Initiating debug run!")
 
-# Load file instruction data
+tape = Tape(input_filename, instructions_filename, output_filename)
 
-f = open(filename, "r")
-tape = Tape(f)
-f.close()
+while tape.running:
+    if debug_run:
+        print(tape.current_state.__str__())
+        print("Current Value / Position: " + tape.get() + " / " + str(tape.position))
+        print(tape)
+        input()
+    tape.analyze()
 
-while not tape.running:
-    pass
+if debug_run:
+        print(tape.current_state.__str__())
+        print("Current Value / Position: " + tape.get() + " / " + str(tape.position))
+        print(tape)
+        input()

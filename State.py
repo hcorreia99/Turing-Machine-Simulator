@@ -29,6 +29,8 @@ class State:
     def __init__(self, s) -> None:
         self.name = s[:s.find(":")]
         self.conditions = []
+        if self.name == "END":
+            return
         for c in s[s.find(":")+1:].split(";"):
             self.conditions.append(Condition(c))
 
