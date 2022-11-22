@@ -38,6 +38,8 @@ class State:
 
         result = "--STATE--\n"
         result += "Name: " + self.name + "\n"
+        if self.name == "END":
+            return result
         result+="Conditions: \n"
         for c in self.conditions:
             result += "    "+c.__str__()

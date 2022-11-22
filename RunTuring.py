@@ -1,7 +1,7 @@
 from Tape import Tape
 
 
-debug_run = False
+debug_run = True
 default_file_names = True
 
 if default_file_names:
