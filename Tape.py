@@ -1,24 +1,28 @@
 from State import State
 class Tape:
-    def __init__(self, input_filename, instruction_filename, output_filename) -> None:
-        # Populate tape
+    def __init__(self) -> None:
         self.tape = []
-        f = open(input_filename, "r")
-        self.populate(f)
-        f.close()
-
         self.position = 0
-
-        # Populate States
         self.states = []
-        f = open(instruction_filename, "r")
-        for line in f:
-            self.states.append(State(line))
-        f.close()
-
-        self.current_state = self.states[0]
         self.running = True
-        self.output_filename = output_filename
+    
+    def populate(self, input, states):
+        self.populate_input(input)
+        self.populate_states(states)
+
+        # Select first state as starting state
+        self.current_state = self.states[0]
+
+    # Populates the tape
+    def populate_input(self, input):
+        for s in input:
+            self.tape.append(s)
+        self.tape.append("_")
+
+    # Receives an array of states and populates
+    def populate_states(self, states):
+       for s in states:
+            self.states.append(State(s))
 
     # Decide wether to move left or right
     def move(self, move):
@@ -43,11 +47,6 @@ class Tape:
     def set(self, value):
         self.tape[self.position] = value
     
-    def populate(self, file):
-        arr=file.read()
-        for a in arr:
-            self.tape.append(a)
-        self.tape.append("_")
 
     # Change state to state with state_name
     # If state_name is END tape stops running
@@ -56,19 +55,13 @@ class Tape:
             if s.name == state_name:
                 self.current_state = s
                 break
+        # Check if new state is an END state
         if self.current_state.name == "END":
             self.end()
 
     # Ends this tape's run and output to file
     def end(self):
         self.running = False
-        f = open(self.output_filename,"a")
-        result = ""
-        for s in self.tape:
-            result += s
-        print(result)
-        f.write(result)
-        f.close()
         
     # Analyzes and acts on current slot with current state
     def analyze(self):
@@ -78,8 +71,8 @@ class Tape:
             if c.isValid(self.get()):
                 self.set(c.new_value)
                 self.move(c.move)
-                self.changeState(c.next_state)
-                break
+                return self.changeState(c.next_state)
+                
 
     def __str__(self) -> str:
         return self.tape.__str__()

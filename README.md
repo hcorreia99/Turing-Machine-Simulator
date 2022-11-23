@@ -37,7 +37,11 @@ Instruction file syntax should be as follows:
 
     The end state must be called END and should have nothing else typed
     Should look like this
+
+    '_' symbol is a blank space
     END:
+
+    Allows blank spaces and blank lines
 
 # Output File
 After the tape reaches an END state the tape is outputed to an output file
