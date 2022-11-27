@@ -45,4 +45,7 @@ Instruction file syntax should be as follows:
 
 # Output File
 After the tape reaches an END state the tape is outputed to an output file
+
+# RunSettings.py
+Use this file to set the parameters for runtime booleans such as debug runs or a step by step run
     
