@@ -65,7 +65,7 @@ class Tape:
         
     # Analyzes and acts on current slot with current state
     def analyze(self):
-        if self.position==len(self.tape):
+        if self.position==len(self.tape)-1:
             self.tape.append("_")
         for c in self.current_state.conditions:
             if c.isValid(self.get()):
